@@ -1,7 +1,7 @@
 ---
 hero:
   title: pro-components
-  desc: 薮猫科技中后台业务组件库
+  desc: 杭州薮猫科技中后台业务组件库
   actions:
     - text: 快速启动
       link: /components
