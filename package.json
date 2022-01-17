@@ -49,12 +49,17 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "classnames": "^2.3.1"
+    "ag-grid-community": "^26.2.1",
+    "ag-grid-enterprise": "^26.2.1",
+    "ag-grid-react": "^26.2.0",
+    "classnames": "^2.3.1",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.0.3",
+    "@types/lodash": "^4.14.178",
     "@umijs/fabric": "^2.8.1",
     "@umijs/test": "^3.0.5",
     "antd": "^4.17.3",

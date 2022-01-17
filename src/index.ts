@@ -1,2 +1,2 @@
-export type { DrawerProps } from './drawer';
-export { default as Drawer } from './drawer';
+export type { AgGridProps } from './ag-grid';
+export { default as AgGrid } from './ag-grid';
