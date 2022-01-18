@@ -1,0 +1,30 @@
+@import '../../style/index';
+
+.svl-info-card {
+  position: relative;
+  margin-bottom: 16px;
+  padding: @svl-medium-padding;
+  background-color: #fff;
+  border-radius: 4px;
+
+  &-head {
+    margin-bottom: 16px;
+    color: @svl-text-color;
+    font-weight: 500;
+    font-size: 16px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    line-height: 24px;
+  }
+
+  .svl-info-icon {
+    &::before {
+      position: absolute;
+      left: 0;
+      display: inline-block;
+      width: 3px;
+      height: 18px;
+      background: @svl-primary-color;
+      content: '';
+    }
+  }
+}

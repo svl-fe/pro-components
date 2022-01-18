@@ -1,2 +1,2 @@
-export type { AgGridProps } from './ag-grid';
-export { default as AgGrid } from './ag-grid';
+export type { InfoCardProps } from './info-card';
+export { default as InfoCard } from './info-card';
