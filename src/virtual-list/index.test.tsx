@@ -5,13 +5,12 @@ import VirtualList from './index';
 
 describe('<VirtualList />', () => {
   it('render VirtualList with dumi', () => {
-    const title = '信息展示';
     let arr = [];
     for (let i = 0; i < 50; i++) {
       arr.push({ uid: `uid_${i}` });
     }
     render(
-      <VirtualList data={arr} height={100} itemHeight={32} appendData={() => {}} itemKey={'uid'}>
+      <VirtualList data={arr} height={100} itemHeight={32} appendData={() => {}} itemKey="uid">
         {(item: any) => {
           return (
             <div key={item?.uid} style={{ height: 32 }}>
@@ -22,7 +21,8 @@ describe('<VirtualList />', () => {
       </VirtualList>,
     );
     // expect(document.getElementsByClassName('rc-virtual-list-holder-inner')?.[0]?.childNodes?.length).toBeLessThan(200);
-    expect(6).toBeLessThan(200);
+    // expect(6).toBeLessThan(200);
+    // expect(screen.queryByText(title)).toBeInTheDocument();
     // console.warn('@@@@@@@@@@@', VirtualList)
   });
 });

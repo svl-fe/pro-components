@@ -53,7 +53,8 @@
     "ag-grid-enterprise": "^26.2.1",
     "ag-grid-react": "^26.2.0",
     "classnames": "^2.3.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "rc-virtual-list": "^3.4.4"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.15.1",
