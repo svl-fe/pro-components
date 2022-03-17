@@ -4,7 +4,7 @@ import { Checkbox } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import type { CheckboxValueType } from 'antd/lib/checkbox/Group';
 import { useControlledState } from '@svl-ad/hooks';
-import styles from './style/index.less';
+import './style/index.less';
 
 interface ITreeDataItem {
   key: string;
@@ -126,9 +126,9 @@ const CheckboxTree: FC<ICheckboxTree> = (props) => {
   };
 
   return (
-    <div className={styles['svl-checkbox-tree']}>
+    <div className={'svl-checkbox-tree'}>
       {treeData.length > 1 && (
-        <div className={styles['svl-checkbox-tree-all']}>
+        <div className={'svl-checkbox-tree-all'}>
           <Checkbox indeterminate={allImate} onChange={onCheckAll} checked={getAllCheckStatus()}>
             全部
           </Checkbox>
@@ -138,7 +138,7 @@ const CheckboxTree: FC<ICheckboxTree> = (props) => {
       {treeData.map((item) => {
         return (
           <div key={`tree-item-${item.key}`}>
-            <div className={styles['svl-checkbox-tree-item']}>
+            <div className={'svl-checkbox-tree-item'}>
               <Checkbox
                 indeterminate={getIndeterminate(item)}
                 checked={checkedList[item.key]?.length === item.children?.length}
@@ -148,7 +148,7 @@ const CheckboxTree: FC<ICheckboxTree> = (props) => {
               </Checkbox>
             </div>
             {item.children ? (
-              <div className={styles['svl-checkbox-tree-sub-item']}>
+              <div className={'svl-checkbox-tree-sub-item'}>
                 <CheckboxGroup
                   value={checkedList[item.key] || []}
                   onChange={(values) => onCheckSubItem({ key: item.key, list: values })}
