@@ -13,14 +13,14 @@ interface IGridViewProps<T> {
   /**  数据源 */
   dataSource: T[];
   /** 需要分页参数 */
-  filters: ITableQuery;
+  filters?: ITableQuery;
   setFilters?: (item: ITableQuery) => void;
   /**  总数量 */
-  total: number;
+  total?: number;
   /**  是否需要分页 */
   isPagination: boolean;
   /** 样式 */
-  style: CSSProperties;
+  style?: CSSProperties;
 }
 function GridView<T>(props: IGridViewProps<T>) {
   const {
@@ -38,8 +38,8 @@ function GridView<T>(props: IGridViewProps<T>) {
   const handlePageChange = (page: number, pageSize: number) => {
     setFilters?.({
       ...filters,
-      page: page || filters.page,
-      limit: pageSize || filters.limit,
+      page: page || filters?.page || 1,
+      limit: pageSize || filters?.limit || 1,
     });
   };
   return (
@@ -62,8 +62,8 @@ function GridView<T>(props: IGridViewProps<T>) {
             hideOnSinglePage
             style={{ textAlign: 'right' }}
             total={total || 0}
-            current={filters.page}
-            pageSize={filters.limit}
+            current={filters?.page}
+            pageSize={filters?.limit}
             showSizeChanger={false}
             showQuickJumper
             showTotal={(total) => `共 ${total} 条`}

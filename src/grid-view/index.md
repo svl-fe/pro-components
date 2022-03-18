@@ -59,4 +59,4 @@ export default () => {
 | filters      | 分页参数         | `ITableQuery`                 | -      | 分页时传 | -    |
 | setFilters   | 分页参数         | `(item: ITableQuery) => void` | -      | 分页时传 | -    |
 | isPagination | 是否需要分页参数 | `boolean`                     | -      | 分页时传 | -    |
-| total        | 总数据量         | `boolean`                     | -      | -        | -    |
+| total        | 总数据量         | `boolean`                     | -      | 分页时传 | -    |
