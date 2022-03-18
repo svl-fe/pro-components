@@ -1,7 +1,7 @@
 {
   "name": "@svl-ad/pro-components",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "keywords": [
     "React",
     "Components",
@@ -49,6 +49,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@svl-ad/hooks": "^0.0.1",
     "ag-grid-community": "^26.2.1",
     "ag-grid-enterprise": "^26.2.1",
     "ag-grid-react": "^26.2.0",

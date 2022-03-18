@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import RCVirtualList from 'rc-virtual-list';
+import { Spin } from 'antd';
 export interface VirtualListProps {
   /** 数据源 */
   data: any[];
@@ -11,24 +12,28 @@ export interface VirtualListProps {
   appendData?: () => void;
   children: (item: any) => any;
   itemKey: string;
+  /** loading */
+  loading: boolean;
 }
 const VirtualList: FC<VirtualListProps> = (props) => {
-  const { data, height, itemHeight, appendData, children, itemKey } = props;
+  const { data, height, itemHeight, appendData, children, itemKey, loading } = props;
   const onScroll = (e: any) => {
     if (Math.floor(e?.target?.scrollHeight - e?.target?.scrollTop) === height) {
       appendData?.();
     }
   };
   return (
-    <RCVirtualList
-      data={data}
-      height={height}
-      itemHeight={itemHeight}
-      itemKey={itemKey}
-      onScroll={onScroll}
-    >
-      {children}
-    </RCVirtualList>
+    <Spin spinning={loading}>
+      <RCVirtualList
+        data={data}
+        height={height}
+        itemHeight={itemHeight}
+        itemKey={itemKey}
+        onScroll={onScroll}
+      >
+        {children}
+      </RCVirtualList>
+    </Spin>
   );
 };
 export default VirtualList;
