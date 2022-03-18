@@ -32,9 +32,11 @@ export default () => {
   return (
     <GridView
       loading={loading}
-      dataSource={listRes}
+      dataSource={listRes.results}
       filters={filters}
       setFilters={setFilters}
+      isPagination
+      total={listRes.total}
       childNode={(o) => {
         return (
           <div style={{ height: 100, width: 100, marginRight: 20, backgroundColor: '#f8f9fa' }}>
@@ -49,10 +51,12 @@ export default () => {
 
 # API
 
-| 参数 | 说明 | 类型 | 默认值 | 说明 | 版本 |
-| --- | --- | --- | --- | --- | --- |
-| loading | loading | `boolean` | - | - | - |
-| childNode | 子节点 | `(item: any) => ReactNode` | - | - | - |
-| dataSource | 数据源 | `ITableResult<any> or any[]` | - | 分页时传`ITableResult<any>` 不分页传数组`any[]` | - |
-| filters | 分页参数 | `ITableQuery` | - | 分页时传 | - |
-| setFilters | 分页参数 | `(item: ITableQuery) => void` | - | 分页时传 | - |
+| 参数         | 说明             | 类型                          | 默认值 | 说明     | 版本 |
+| ------------ | ---------------- | ----------------------------- | ------ | -------- | ---- |
+| loading      | loading          | `boolean`                     | -      | -        | -    |
+| childNode    | 子节点           | `(item: any) => ReactNode`    | -      | -        | -    |
+| dataSource   | 数据源           | `ITableResult<any>`           | -      | -        | -    |
+| filters      | 分页参数         | `ITableQuery`                 | -      | 分页时传 | -    |
+| setFilters   | 分页参数         | `(item: ITableQuery) => void` | -      | 分页时传 | -    |
+| isPagination | 是否需要分页参数 | `boolean`                     | -      | 分页时传 | -    |
+| total        | 总数据量         | `boolean`                     | -      | -        | -    |

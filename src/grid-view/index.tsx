@@ -1,30 +1,40 @@
 import type { ITableQuery, ITableResult } from './data';
 import { Empty, Pagination, Spin } from 'antd';
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import './style/index.less';
 import React from 'react';
 
-interface IGridViewProps {
+interface IGridViewProps<T> {
   /**  loading */
   loading: boolean;
   /**  子节点 */
-  childNode: (item: any) => ReactNode;
+  childNode: (item: T) => ReactNode;
   className?: string;
   /**  数据源 */
-  dataSource: ITableResult<any> | any[];
+  dataSource: T[];
   /** 需要分页参数 */
   filters: ITableQuery;
   setFilters?: (item: ITableQuery) => void;
+  /**  总数量 */
+  total: number;
+  /**  是否需要分页 */
+  isPagination: boolean;
+  /** 样式 */
+  style: CSSProperties;
 }
-const GridView: React.FC<IGridViewProps> = (props) => {
-  const { loading, childNode, className, dataSource, filters, setFilters } = props;
-  const getDataSource = () => {
-    if (Array.isArray(dataSource)) {
-      return dataSource;
-    } else {
-      return dataSource?.results || [];
-    }
-  };
+function GridView<T>(props: IGridViewProps<T>) {
+  const {
+    loading,
+    childNode,
+    className,
+    dataSource,
+    filters,
+    setFilters,
+    total,
+    isPagination,
+    style,
+  } = props;
+
   const handlePageChange = (page: number, pageSize: number) => {
     setFilters?.({
       ...filters,
@@ -33,25 +43,25 @@ const GridView: React.FC<IGridViewProps> = (props) => {
     });
   };
   return (
-    <div className={`svl-bottomContainer ${className}`}>
+    <div className={`svl-bottomContainer ${className}`} style={style}>
       <Spin spinning={loading}>
         <div
           className={'svl-bottomContent'}
-          style={{ justifyContent: getDataSource().length > 0 ? undefined : 'center' }}
+          style={{ justifyContent: dataSource.length > 0 ? undefined : 'center' }}
         >
-          {getDataSource().length > 0 ? (
-            getDataSource().map((o: any) => childNode(o))
+          {dataSource.length > 0 ? (
+            dataSource.map((item: any) => childNode(item))
           ) : (
             <Empty description="暂无数据" />
           )}
         </div>
       </Spin>
       <div>
-        {Array.isArray(dataSource) || (
+        {isPagination && (
           <Pagination
             hideOnSinglePage
             style={{ textAlign: 'right' }}
-            total={dataSource?.total || 0}
+            total={total || 0}
             current={filters.page}
             pageSize={filters.limit}
             showSizeChanger={false}
@@ -63,5 +73,5 @@ const GridView: React.FC<IGridViewProps> = (props) => {
       </div>
     </div>
   );
-};
+}
 export default GridView;
