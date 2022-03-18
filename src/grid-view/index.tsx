@@ -49,11 +49,7 @@ function GridView<T>(props: IGridViewProps<T>) {
           className={'svl-bottomContent'}
           style={{ justifyContent: dataSource.length > 0 ? undefined : 'center' }}
         >
-          {dataSource.length > 0 ? (
-            dataSource.map((item: any) => childNode(item))
-          ) : (
-            <Empty description="暂无数据" />
-          )}
+          {dataSource.length > 0 ? dataSource.map(childNode) : <Empty description="暂无数据" />}
         </div>
       </Spin>
       <div>
