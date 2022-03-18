@@ -1,4 +1,4 @@
-import type { ITableQuery, ITableResult } from './data';
+import type { ITableQuery } from './data';
 import { Empty, Pagination, Spin } from 'antd';
 import type { CSSProperties, ReactNode } from 'react';
 import './style/index.less';

@@ -11,11 +11,3 @@ export interface ITableQuery {
   /** 搜索字段 精准匹配 */
   keywords?: Record<string, string[]>;
 }
-/**
- * 列表结果
- */
-export interface ITableResult<T> {
-  total: number;
-  page: number;
-  results: T[];
-}
