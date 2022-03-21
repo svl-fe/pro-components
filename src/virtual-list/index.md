@@ -47,10 +47,10 @@ export default () => {
 
 # API
 
-| 参数       | 说明           | 类型         | 默认值 | 版本 |
-| ---------- | -------------- | ------------ | ------ | ---- |
-| data       | 数据源         | `array`      | -      | -    |
-| height     | 容器高度       | `number`     | -      | -    |
-| itemHeight | Item 高度      | `number`     | -      | -    |
-| appendData | 滚动加载回调   | `() => void` | -      | -    |
-| itemKey    | 数据源唯一 key | `string`     | -      | -    |
+| 参数       | 说明           | 类型         | 默认值 | 是否必传 | 版本 |
+| ---------- | -------------- | ------------ | ------ | -------- | ---- |
+| data       | 数据源         | `array`      | -      | 是       | -    |
+| height     | 容器高度       | `number`     | -      | 是       | -    |
+| itemHeight | Item 高度      | `number`     | -      | 是       | -    |
+| appendData | 滚动加载回调   | `() => void` | -      | 否       | -    |
+| itemKey    | 数据源唯一 key | `string`     | -      | 是       | -    |

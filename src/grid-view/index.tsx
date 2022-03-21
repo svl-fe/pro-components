@@ -43,10 +43,10 @@ function GridView<T>(props: IGridViewProps<T>) {
     });
   };
   return (
-    <div className={`svl-bottomContainer ${className}`} style={style}>
+    <div className={`svl-pro-gridview-bottom-container ${className}`} style={style}>
       <Spin spinning={loading}>
         <div
-          className={'svl-bottomContent'}
+          className={'svl-pro-gridview-bottom-content'}
           style={{ justifyContent: dataSource.length > 0 ? undefined : 'center' }}
         >
           {dataSource.length > 0 ? dataSource.map(childNode) : <Empty description="暂无数据" />}

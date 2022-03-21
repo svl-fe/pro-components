@@ -51,12 +51,12 @@ export default () => {
 
 # API
 
-| 参数         | 说明             | 类型                          | 默认值 | 说明     | 版本 |
+| 参数         | 说明             | 类型                          | 默认值 | 是否必传 | 版本 |
 | ------------ | ---------------- | ----------------------------- | ------ | -------- | ---- |
-| loading      | loading          | `boolean`                     | -      | -        | -    |
-| childNode    | 子节点           | `(item: any) => ReactNode`    | -      | -        | -    |
-| dataSource   | 数据源           | `ITableResult<any>`           | -      | -        | -    |
-| filters      | 分页参数         | `ITableQuery`                 | -      | 分页时传 | -    |
-| setFilters   | 分页参数         | `(item: ITableQuery) => void` | -      | 分页时传 | -    |
-| isPagination | 是否需要分页参数 | `boolean`                     | -      | 分页时传 | -    |
-| total        | 总数据量         | `number`                      | -      | 分页时传 | -    |
+| loading      | loading          | `boolean`                     | -      | 否       | -    |
+| childNode    | 子节点           | `(item: any) => ReactNode`    | -      | 是       | -    |
+| dataSource   | 数据源           | `ITableResult<any>`           | -      | 是       | -    |
+| filters      | 分页参数         | `ITableQuery`                 | -      | 否       | -    |
+| setFilters   | 分页参数         | `(item: ITableQuery) => void` | -      | 否       | -    |
+| isPagination | 是否需要分页参数 | `boolean`                     | -      | 否       | -    |
+| total        | 总数据量         | `number`                      | -      | 否       | -    |
