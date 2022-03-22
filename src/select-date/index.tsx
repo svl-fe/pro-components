@@ -4,6 +4,7 @@ import { Select, DatePicker } from 'antd';
 import type { Moment } from 'moment';
 import moment from 'moment';
 import type { RangeValue } from 'rc-picker/lib/interface';
+import { RefSelectProps } from 'antd/lib/select';
 
 import './style/index.less';
 
@@ -125,8 +126,7 @@ const SelectDate: FC<ISelectDate> = (props) => {
     return undefined;
   });
   const [dateValue, setDateValue] = useState(defaultDate);
-  const pickerRef = useRef<any>(null);
-  const selectRef = useRef<any>(null);
+  const selectRef = useRef<RefSelectProps>(null);
   const okTimeRef = useRef(0);
 
   const timeOptionsR = useMemo(() => {
@@ -150,11 +150,8 @@ const SelectDate: FC<ISelectDate> = (props) => {
   const openDate = () => {
     selectRef.current?.blur();
     setOpen(true);
-    // setTimeout(() => {
-    //   pickerRef.current?.focus();
-    // }, 10);
   };
-  const changeDate = (moments: any, v: [string, string]) => {
+  const changeDate = (moments: RangeValue<Moment>, v: [string, string]) => {
     setSelfDate(selfFormatter(v));
     if (moments) {
       setSelfMoment(moments);
@@ -217,7 +214,6 @@ const SelectDate: FC<ISelectDate> = (props) => {
         <RangePicker
           autoFocus
           defaultOpen
-          ref={pickerRef}
           value={selfMoment || undefined}
           className="svl-select-date-range"
           allowClear={false}
