@@ -20,12 +20,16 @@ export interface IRemoteSelect extends SelectProps {
   addText?: string;
   /** 初始化时是否获取数据 默认值true */
   initFetch?: boolean;
+  /** 是否加载更多数据 */
+  loadMore?: boolean;
+  /** 距离底部多少时开始加载数据，默认值 10 */
+  offsetBottom?: number;
   /** 添加选项方法 */
   addOption?: (params: string) => void;
   /** 添加参数校验方法 */
   checkAddParams?: (params: string) => boolean;
   /** 搜索获取下拉选项方法 */
-  fetchOptions: (params: string) => Promise<LabeledValue[]>;
+  fetchOptions: (params: string, page?: number) => Promise<LabeledValue[]>;
   /** 值发生变化回调 */
   onChange?: (params: Value) => void;
 }
@@ -36,8 +40,9 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
     value,
     addText,
     className,
+    offsetBottom = 10,
     initFetch = true,
-    showSearch = true,
+    loadMore,
     fetchOptions,
     onChange,
     addOption,
@@ -49,6 +54,7 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
   const [selfValue, setSelfValue] = useState<Value>();
   const [options, setOptions] = useState<LabeledValue[]>([]);
   const fetchRef = useRef(0);
+  const pageRef = useRef(1);
   const selectRef = useRef<RefSelectProps>(null);
   const currentParamRef = useRef('');
   const handleChange = (changeValue: Value) => {
@@ -69,6 +75,7 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
   const debounceFetcher = useMemo(() => {
     const loadOptions = (param: string) => {
       fetchRef.current += 1;
+      pageRef.current = 1;
       currentParamRef.current = param;
       const fetchId = fetchRef.current;
       setOptions([]);
@@ -78,10 +85,8 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
           // for fetch callback order
           return;
         }
-        if (newOptions) {
-          setOptions(newOptions);
-          setFetching(false);
-        }
+        setOptions(newOptions);
+        setFetching(false);
       });
     };
 
@@ -105,7 +110,20 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
   const handleVisibleChange = (open: boolean) => {
     if (!open && currentParamRef.current) {
       currentParamRef.current = '';
+      pageRef.current = 1;
       initData();
+    }
+  };
+
+  const onPopupScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement;
+    if (loadMore && scrollTop >= scrollHeight - clientHeight - offsetBottom) {
+      pageRef.current += 1;
+      setFetching(true);
+      fetchOptions(currentParamRef.current, pageRef.current).then((newOptions) => {
+        setOptions([...options, ...newOptions]);
+        setFetching(false);
+      });
     }
   };
 
@@ -116,7 +134,6 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
       value={value || selfValue}
       filterOption={false}
       onChange={handleChange}
-      showSearch={showSearch}
       onSearch={debounceFetcher}
       notFoundContent={fetching ? <Spin size="small" /> : options?.length ? null : <Empty />}
       options={options}
@@ -131,6 +148,7 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
         </>
       )}
       onDropdownVisibleChange={handleVisibleChange}
+      onPopupScroll={onPopupScroll}
       {...rest}
     />
   );
