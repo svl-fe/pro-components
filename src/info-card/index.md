@@ -3,7 +3,7 @@ nav:
   title: 组件
   path: /components
 group:
-  path: /components
+  # path: /components
   title: 数据展示
   order: 2
 ---
