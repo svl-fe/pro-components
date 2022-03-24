@@ -62,3 +62,4 @@ export default () => {
 | setFilters   | 分页参数         | `(item: ITableQuery) => void` | -      | 否       | -    |
 | isPagination | 是否需要分页参数 | `boolean`                     | `true` | 否       | -    |
 | total        | 总数据量         | `number`                      | -      | 否       | -    |
+| pagination   | 分页参数         | `Object`                      | -      | 否       | -    |

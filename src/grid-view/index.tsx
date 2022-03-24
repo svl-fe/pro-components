@@ -21,6 +21,8 @@ interface IGridViewProps {
   style?: CSSProperties;
   /** 子节点 */
   children: ReactNode;
+  /** 分页参数 */
+  pagination?: Object;
 }
 function GridView(props: IGridViewProps) {
   const {
@@ -34,6 +36,7 @@ function GridView(props: IGridViewProps) {
     isPagination = true,
     style,
     children,
+    pagination,
   } = props;
 
   const handlePageChange = (page: number, pageSize: number) => {
@@ -65,6 +68,7 @@ function GridView(props: IGridViewProps) {
             showQuickJumper
             showTotal={(total) => `共 ${total} 条`}
             onChange={handlePageChange}
+            {...pagination}
           />
         )}
       </div>
