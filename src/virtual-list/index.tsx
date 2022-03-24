@@ -13,10 +13,10 @@ export interface VirtualListProps<T> {
   children: (item: T) => ReactNode;
   itemKey: string;
   /** loading */
-  loading: boolean;
+  loading?: boolean;
 }
 function VirtualList<T>(props: VirtualListProps<T>) {
-  const { data, height, itemHeight, appendData, children, itemKey, loading } = props;
+  const { data, height, itemHeight, appendData, children, itemKey, loading = false } = props;
   const onScroll = (e: React.UIEvent<HTMLElement, UIEvent>) => {
     if (Math.floor(e.currentTarget.scrollHeight - e.currentTarget.scrollTop) === height) {
       appendData?.();

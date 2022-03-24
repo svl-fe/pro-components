@@ -3,53 +3,54 @@ import { Empty, Pagination, Spin } from 'antd';
 import type { CSSProperties, ReactNode } from 'react';
 import './style/index.less';
 import React from 'react';
+import { isEmpty } from 'lodash';
 
-interface IGridViewProps<T> {
+interface IGridViewProps {
   /**  loading */
   loading: boolean;
-  /**  子节点 */
-  childNode: (item: T) => ReactNode;
+  /** 类名 */
   className?: string;
-  /**  数据源 */
-  dataSource: T[];
   /** 需要分页参数 */
   filters?: ITableQuery;
   setFilters?: (item: ITableQuery) => void;
   /**  总数量 */
   total?: number;
   /**  是否需要分页 */
-  isPagination: boolean;
+  isPagination?: boolean;
   /** 样式 */
   style?: CSSProperties;
+  /** 子节点 */
+  children: ReactNode;
 }
-function GridView<T>(props: IGridViewProps<T>) {
+function GridView(props: IGridViewProps) {
   const {
     loading,
-    childNode,
+    // childNode,
     className,
-    dataSource,
+    // dataSource,
     filters,
     setFilters,
     total,
-    isPagination,
+    isPagination = true,
     style,
+    children,
   } = props;
 
   const handlePageChange = (page: number, pageSize: number) => {
     setFilters?.({
       ...filters,
       page: page || filters?.page || 1,
-      limit: pageSize || filters?.limit || 1,
+      limit: pageSize || filters?.limit || 10,
     });
   };
   return (
-    <div className={`svl-pro-gridview-bottom-container ${className}`} style={style}>
+    <div className={`svl-pro-gridview-container ${className}`} style={style}>
       <Spin spinning={loading}>
         <div
-          className={'svl-pro-gridview-bottom-content'}
-          style={{ justifyContent: dataSource.length > 0 ? undefined : 'center' }}
+          className={'svl-pro-gridview-content'}
+          style={{ justifyContent: isEmpty(children) ? 'center' : 'inherit' }}
         >
-          {dataSource.length > 0 ? dataSource.map(childNode) : <Empty description="暂无数据" />}
+          {isEmpty(children) ? <Empty description="暂无数据" /> : children}
         </div>
       </Spin>
       <div>

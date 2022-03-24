@@ -54,3 +54,4 @@ export default () => {
 | itemHeight | Item 高度      | `number`     | -      | 是       | -    |
 | appendData | 滚动加载回调   | `() => void` | -      | 否       | -    |
 | itemKey    | 数据源唯一 key | `string`     | -      | 是       | -    |
+| loading    | loading        | `boolean`    | -      | 否       | -    |
