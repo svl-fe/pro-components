@@ -1,0 +1,23 @@
+@import '../../style/index';
+
+.svl-select-date {
+  position: relative;
+  width: 310px;
+
+  &-select,
+  &-range {
+    width: 100%;
+  }
+  &-range {
+    display: none;
+  }
+  &.date-open {
+    .svl-select-date-select {
+      display: none;
+    }
+    .svl-select-date-range {
+      display: inline-flex;
+      overflow: auto;
+    }
+  }
+}
