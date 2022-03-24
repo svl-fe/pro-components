@@ -1,4 +1,5 @@
 import { defineConfig } from 'dumi';
+import theme from './theme';
 
 export default defineConfig({
   title: 'pro-components',
@@ -9,5 +10,9 @@ export default defineConfig({
   publicPath: '/pro-components/',
   base: '/pro-components',
   mode: 'site',
+  theme,
+  extraBabelPlugins: [
+    ['babel-plugin-import', { libraryName: 'antd', libraryDirectory: 'es', style: true }, 'antd'],
+  ],
   // more config: https://d.umijs.org/config
 });
