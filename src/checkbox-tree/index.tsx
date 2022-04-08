@@ -11,7 +11,7 @@ const CheckboxGroup = Checkbox.Group;
 interface TreeNodeItem {
   key: string;
   title: string;
-  custom?: () => ReactNode;
+  custom?: ReactNode;
 }
 
 interface TreeNode extends TreeNodeItem {
@@ -134,7 +134,7 @@ const CheckboxTree: FC<CheckboxTree> = (props) => {
       <div>
         {data.map((item) => {
           if (item.custom) {
-            return item.custom();
+            return item.custom;
           }
           return (
             <Checkbox
