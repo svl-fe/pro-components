@@ -56,7 +56,7 @@ export default () => {
         {
           key: 'delete',
           title: '可删除',
-          custom: (
+          customNode: (
             <Checkbox
               key={'delete'}
               value={'delete'}
@@ -109,8 +109,8 @@ export default () => {
 
 #### children
 
-| 属性   | 说明        | 类型      | 默认值 | 是否必传 | 版本 |
-| ------ | ----------- | --------- | ------ | -------- | ---- |
-| key    | key 值      | string    | -      | 是       |      |
-| title  | title       | string    | -      | 否       |      |
-| custom | 自定义 node | ReactNode | -      | 否       |      |
+| 属性       | 说明        | 类型      | 默认值 | 是否必传 | 版本 |
+| ---------- | ----------- | --------- | ------ | -------- | ---- |
+| key        | key 值      | string    | -      | 是       |      |
+| title      | title       | string    | -      | 否       |      |
+| customNode | 自定义 node | ReactNode | -      | 否       |      |

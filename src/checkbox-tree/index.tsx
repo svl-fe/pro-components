@@ -7,15 +7,17 @@ import { useControlledState } from '@svl-ad/hooks';
 import './style/index.less';
 
 const CheckboxGroup = Checkbox.Group;
-
+interface CustomNodeItem extends TreeNodeItem {
+  /** 自定义节点 */
+  customNode?: ReactNode;
+}
 interface TreeNodeItem {
   key: string;
   title: string;
-  custom?: ReactNode;
 }
 
 interface TreeNode extends TreeNodeItem {
-  children?: TreeNodeItem[];
+  children?: CustomNodeItem[];
 }
 
 interface CheckboxTree {
@@ -132,9 +134,9 @@ const CheckboxTree: FC<CheckboxTree> = (props) => {
   const renderChildren = (data: TreeNode[]) => {
     return (
       <div>
-        {data.map((item) => {
-          if (item.custom) {
-            return item.custom;
+        {data.map((item: CustomNodeItem) => {
+          if (item.customNode) {
+            return item.customNode;
           }
           return (
             <Checkbox
