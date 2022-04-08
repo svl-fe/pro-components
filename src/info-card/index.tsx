@@ -12,7 +12,6 @@ export interface InfoCardProps {
   className?: string;
   /** 容器样式 */
   style?: React.CSSProperties;
-  children?: string;
 }
 
 /**
