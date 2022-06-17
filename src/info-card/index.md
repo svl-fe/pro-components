@@ -41,3 +41,5 @@ export default () => {
 | defaultkey | 默认选中的条目 | Record<string, string[]> | - | 否 |  |
 | onChange | 选中树节点调用此函数 | function(value: Record<string, string[]>}) | - | 否 |  |
 | treeData | treeNodes 数据 | array<{key, title, children}> | - | 是 |  |
+| contentClasssName | 内容类名 | string | - | 否 |  |
+| contentStyle | 内容样式 | `React.CSSProperties` | - | 否 |  |
