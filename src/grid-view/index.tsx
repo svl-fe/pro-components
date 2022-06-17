@@ -1,5 +1,5 @@
 import type { ITableQuery } from './data';
-import { Empty, Pagination, Spin } from 'antd';
+import { Empty, Pagination, Spin, SpinProps } from 'antd';
 import type { CSSProperties, ReactNode } from 'react';
 import './style/index.less';
 import React from 'react';
@@ -46,9 +46,12 @@ function GridView(props: IGridViewProps) {
       limit: pageSize || filters?.limit || 10,
     });
   };
+  const spinProps: SpinProps = {
+    spinning: loading,
+  };
   return (
     <div className={`svl-pro-gridview-container ${className}`} style={style}>
-      <Spin spinning={loading}>
+      <Spin>
         <div
           className={'svl-pro-gridview-content'}
           style={{ justifyContent: isEmpty(children) ? 'center' : 'inherit' }}

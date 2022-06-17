@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import RcVirtualList from 'rc-virtual-list';
-import { Spin } from 'antd';
+import { Spin, SpinProps } from 'antd';
+import { RenderFunc } from 'rc-virtual-list/lib/interface';
 export interface VirtualListProps<T> {
   /** 数据源 */
   data: T[];
@@ -10,7 +11,7 @@ export interface VirtualListProps<T> {
   itemHeight: number;
   /** 如果需要滚动加载添加此参数 */
   appendData?: () => void;
-  children: (item: T) => ReactNode;
+  children: RenderFunc<T> & ReactNode;
   itemKey: string;
   /** loading */
   loading?: boolean;
@@ -22,8 +23,11 @@ function VirtualList<T>(props: VirtualListProps<T>) {
       appendData?.();
     }
   };
+  const spinProps: SpinProps = {
+    spinning: loading,
+  };
   return (
-    <Spin spinning={loading}>
+    <Spin {...spinProps}>
       <RcVirtualList
         data={data}
         height={height}
