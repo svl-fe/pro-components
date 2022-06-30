@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { ReactNode, useCallback, useMemo } from 'react';
 import type { FC } from 'react';
 import { Checkbox } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/lib/checkbox';
@@ -7,14 +7,17 @@ import { useControlledState } from '@svl-ad/hooks';
 import './style/index.less';
 
 const CheckboxGroup = Checkbox.Group;
-
+interface CustomNodeItem extends TreeNodeItem {
+  /** 自定义节点 */
+  customNode?: ReactNode;
+}
 interface TreeNodeItem {
   key: string;
   title: string;
 }
 
 interface TreeNode extends TreeNodeItem {
-  children?: TreeNodeItem[];
+  children?: CustomNodeItem[];
 }
 
 interface CheckboxTree {
@@ -131,11 +134,20 @@ const CheckboxTree: FC<CheckboxTree> = (props) => {
   const renderChildren = (data: TreeNode[]) => {
     return (
       <div>
-        {data.map((item) => (
-          <Checkbox key={item.key} value={item.key} className="svl-pro-checkbox-tree-sub-item-opt">
-            {item.title}
-          </Checkbox>
-        ))}
+        {data.map((item: CustomNodeItem) => {
+          if (item.customNode) {
+            return item.customNode;
+          }
+          return (
+            <Checkbox
+              key={item.key}
+              value={item.key}
+              className="svl-pro-checkbox-tree-sub-item-opt"
+            >
+              {item.title}
+            </Checkbox>
+          );
+        })}
       </div>
     );
   };
