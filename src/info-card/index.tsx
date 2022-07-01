@@ -12,6 +12,11 @@ export interface InfoCardProps {
   className?: string;
   /** 容器样式 */
   style?: React.CSSProperties;
+  children?: React.ReactNode;
+  /** 内容类名 */
+  contentClasssName?: string;
+  /** 内容样式 */
+  contentStyle?: React.CSSProperties;
 }
 
 /**
@@ -20,7 +25,15 @@ export interface InfoCardProps {
  * title: 标题内容
  */
 const InfoCard: FC<InfoCardProps> = (props) => {
-  const { cardTitle, showHighLightIcon, className, style, children } = props;
+  const {
+    cardTitle,
+    showHighLightIcon,
+    className,
+    style,
+    children,
+    contentClasssName,
+    contentStyle,
+  } = props;
 
   const containerCls = classNames('svl-info-card', className);
   const headCls = classNames({
@@ -31,7 +44,9 @@ const InfoCard: FC<InfoCardProps> = (props) => {
   return (
     <div className={`${containerCls}`} style={style}>
       {cardTitle ? <div className={headCls}>{cardTitle}</div> : null}
-      <div>{children}</div>
+      <div className={contentClasssName} style={contentStyle}>
+        {children}
+      </div>
     </div>
   );
 };
