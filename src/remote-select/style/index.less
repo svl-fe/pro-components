@@ -10,14 +10,14 @@
     color: @text-color-secondary;
     font-weight: 400;
     font-size: 14px;
-    border-top: 1px solid @border-color-n7;
+    border-top: 1px solid @disabled-active-bg;
     cursor: pointer;
     &-value {
       padding-left: 12px;
       color: @text-color;
     }
     &:hover {
-      background-color: @svl-menu-bg-2;
+      background-color: fade(@primary-color, 20%);
     }
   }
 }
