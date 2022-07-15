@@ -60,10 +60,15 @@ const CheckboxTree: FC<CheckboxTree> = (props) => {
 
   const onCheckItem = ({ checked, data }: { checked: boolean; data: TreeNode }) => {
     if (checked) {
-      setCheckedList({
-        ...checkedList,
-        [`${data.key}`]: data.children?.map((item) => item.key) || [],
-      });
+      let new_data = data?.children?.map((item) => item.key)?.filter((item) => !!item);
+      let new_obj = checkedList;
+      if (new_data?.length) {
+        new_obj = {
+          ...checkedList,
+          [`${data.key}`]: data.children?.map((item) => item.key) || [],
+        };
+      }
+      setCheckedList(new_obj);
     } else {
       const new_data = { ...checkedList };
       if (new_data.hasOwnProperty(`${data.key}`)) {

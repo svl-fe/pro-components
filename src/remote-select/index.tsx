@@ -4,18 +4,18 @@ import { useState, useMemo, useRef } from 'react';
 import type { SelectProps } from 'antd';
 import { Select, Spin, Empty } from 'antd';
 import { debounce } from 'lodash';
-import type { LabeledValue, RefSelectProps } from 'antd/es/select';
+import type { LabeledValue, RefSelectProps, SelectValue } from 'antd/es/select';
 
 import './style/index.less';
 
 type RawValue = string | number;
-type Value = RawValue | RawValue[];
+// type Value = RawValue | RawValue[];
 
 export interface IRemoteSelect extends SelectProps {
   /** 搜索防抖时间，默认值800 */
   debounceTimeout?: number;
   /** 组件当前值 */
-  value?: Value | LabeledValue | LabeledValue[];
+  value?: SelectValue | LabeledValue | LabeledValue[];
   /** 添加功能 文字 */
   addText?: string;
   /** 初始化时是否获取数据 默认值true */
@@ -31,7 +31,7 @@ export interface IRemoteSelect extends SelectProps {
   /** 搜索获取下拉选项方法 */
   fetchOptions: (params: string, page?: number) => Promise<LabeledValue[]>;
   /** 值发生变化回调 */
-  onChange?: (params: Value) => void;
+  onChange?: (params: SelectValue) => void;
 }
 
 const RemoteSelect: FC<IRemoteSelect> = (props) => {
@@ -51,13 +51,13 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
   } = props;
 
   const [fetching, setFetching] = useState(false);
-  const [selfValue, setSelfValue] = useState<Value>();
+  const [selfValue, setSelfValue] = useState<SelectValue>();
   const [options, setOptions] = useState<LabeledValue[]>([]);
   const fetchRef = useRef(0);
   const pageRef = useRef(1);
   const selectRef = useRef<RefSelectProps>(null);
   const currentParamRef = useRef('');
-  const handleChange = (changeValue: Value) => {
+  const handleChange = (changeValue: SelectValue) => {
     if (!('value' in props)) {
       setSelfValue(changeValue);
     }
