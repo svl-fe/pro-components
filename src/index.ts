@@ -11,3 +11,5 @@ export { default as Conditions } from './conditions';
 export { default as GridView } from './grid-view';
 export type { HashLocationProps } from './hash-location';
 export { default as HashLocation } from './hash-location';
+export type { IColDetailProps } from './col-detail';
+export { default as ColDetail } from './col-detail';
