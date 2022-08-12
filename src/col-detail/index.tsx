@@ -16,7 +16,7 @@ interface Item extends ColProps {
   /** 展示值，若为string时，展示info对应字段 */
   value:
     | string
-    | ((params?: any) => { tooltip: string | React.ReactNode; show: string | React.ReactNode });
+    | ((params?: any) => { tooltip?: string | React.ReactNode; show?: string | React.ReactNode });
   /** key数量字段 */
   keyNumber?: string;
   /** 判断是否展示该字段，不传时默认展示 */
@@ -32,12 +32,16 @@ export interface IColDetailProps {
   info?: Record<string, any>;
   /** Col样式 */
   style?: CSSProperties;
+  /** key样式 */
+  keyStyle?: CSSProperties;
+  /** value样式 */
+  valueStyle?: CSSProperties;
   /** 样式名称 */
   className?: string;
 }
 
 const ColDetail: FC<IColDetailProps> = (props) => {
-  const { colData, info, style, className = '' } = props;
+  const { colData, info, style, keyStyle, valueStyle, className = '' } = props;
 
   return (
     <>
@@ -71,11 +75,15 @@ const ColDetail: FC<IColDetailProps> = (props) => {
             style={style}
             {...rest}
           >
-            <div className="svl-col-detail-info-label">
+            <div style={keyStyle} className="svl-col-detail-info-label">
               {resultKey}
               {keyAfter}
             </div>
-            <Text className="svl-col-detail-info-value" ellipsis={{ tooltip: result?.tooltip }}>
+            <Text
+              style={valueStyle}
+              className="svl-col-detail-info-value"
+              ellipsis={{ tooltip: result?.tooltip }}
+            >
               {result?.show || '-'}
             </Text>
           </Col>
