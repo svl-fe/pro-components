@@ -25,3 +25,38 @@
     }
   }
 }
+.svl-pro-checkbox-tree-view {
+  display: flex;
+  flex-direction: column;
+  .svl-pro-checkbox-tree-view-item-container {
+    display: flex;
+    & + .svl-pro-checkbox-tree-view-item-container {
+      margin-top: 12px;
+    }
+  }
+
+  .svl-pro-checkbox-tree-view-sub-item-container {
+    display: flex;
+  }
+  .svl-pro-checkbox-tree-view-item-title {
+    width: 80px;
+    height: 24px;
+    color: #969799;
+    line-height: 24px;
+  }
+  .svl-pro-checkbox-tree-view-sub-item {
+    min-width: 64px;
+    height: 24px;
+    padding: 0 4px;
+    color: #323233;
+    font-family: 'PingFang SC';
+    font-style: normal;
+    line-height: 24px;
+    text-align: center;
+    background: #f2f3f5;
+    border-radius: 2px;
+  }
+  .svl-pro-checkbox-tree-view-sub-item + .svl-pro-checkbox-tree-view-sub-item {
+    margin-left: 16px;
+  }
+}
