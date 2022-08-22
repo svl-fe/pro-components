@@ -5,6 +5,7 @@ import type { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import type { CheckboxValueType } from 'antd/lib/checkbox/Group';
 import { useControlledState } from '@svl-ad/hooks';
 import './style/index.less';
+import { has } from 'lodash';
 
 const CheckboxGroup = Checkbox.Group;
 interface CustomNodeItem extends TreeNodeItem {
@@ -31,10 +32,19 @@ interface CheckboxTree {
   onChange?: (value: Record<string, CheckboxValueType[]>) => void;
   /** treeNodes 数据 */
   treeData: TreeNode[];
+  /** 只做数据展示 */
+  view?: TreeNode[];
 }
 
 const CheckboxTree: FC<CheckboxTree> = (props) => {
-  const { isShowAll = true, treeData = [], onChange, defaultValue = {}, value } = props;
+  const {
+    isShowAll = true,
+    treeData = [],
+    onChange,
+    defaultValue = {},
+    value,
+    view = false,
+  } = props;
 
   const [checkedList, setCheckedList] = useControlledState<Record<string, CheckboxValueType[]>>(
     defaultValue,
@@ -50,7 +60,10 @@ const CheckboxTree: FC<CheckboxTree> = (props) => {
           return (checked = false);
         }
 
-        if (treeItem.children.length !== checkedList[treeItem.key].length) {
+        if (
+          treeItem.children?.filter((data) => has(data, 'title'))?.length !==
+          checkedList[treeItem.key].length
+        ) {
           return (checked = false);
         }
       }
@@ -60,12 +73,12 @@ const CheckboxTree: FC<CheckboxTree> = (props) => {
 
   const onCheckItem = ({ checked, data }: { checked: boolean; data: TreeNode }) => {
     if (checked) {
-      let new_data = data?.children?.map((item) => item.key)?.filter((item) => !!item);
+      let new_data = data?.children?.map((item) => item.key);
       let new_obj = checkedList;
       if (new_data?.length) {
         new_obj = {
           ...checkedList,
-          [`${data.key}`]: data.children?.map((item) => item.key) || [],
+          [`${data.key}`]: (data.children?.map((item) => item.key) || [])?.filter((item) => !!item),
         };
       }
       setCheckedList(new_obj);
@@ -79,7 +92,7 @@ const CheckboxTree: FC<CheckboxTree> = (props) => {
   };
 
   const onCheckSubItem = ({ key, list }: { key: string; list: CheckboxValueType[] }) => {
-    const new_data = { ...checkedList, [`${key}`]: list };
+    const new_data = { ...checkedList, [`${key}`]: list?.filter((item) => !!item) };
     if (list.length === 0) {
       delete new_data[key];
     }
@@ -89,7 +102,9 @@ const CheckboxTree: FC<CheckboxTree> = (props) => {
   const onCheckAll = (e: CheckboxChangeEvent) => {
     if (e.target.checked) {
       const checkedData = treeData.reduce<Record<string, CheckboxValueType[]>>((prev, current) => {
-        prev[current.key] = current.children?.map((item) => item.key) || [];
+        prev[current.key] = (current.children?.map((item) => item.key) || [])?.filter(
+          (item) => !!item,
+        );
 
         return prev;
       }, {});
@@ -113,7 +128,10 @@ const CheckboxTree: FC<CheckboxTree> = (props) => {
             return (checked = true);
           }
 
-          if (treeItem.children.length !== checkedList[treeItem.key].length) {
+          if (
+            treeItem.children?.filter((item) => has(item, 'title')).length !==
+            checkedList[treeItem.key].length
+          ) {
             return (checked = true);
           }
         }
@@ -130,8 +148,10 @@ const CheckboxTree: FC<CheckboxTree> = (props) => {
     (item: TreeNode) => {
       if (!checkedList[item.key]) return false;
       if (!item.children) return true;
-
-      return !!checkedList[item.key].length && checkedList[item.key].length < item.children.length;
+      return (
+        !!checkedList[item.key].length &&
+        checkedList[item.key].length < item.children?.filter((data) => has(data, 'title')).length
+      );
     },
     [checkedList],
   );
@@ -156,7 +176,42 @@ const CheckboxTree: FC<CheckboxTree> = (props) => {
       </div>
     );
   };
-
+  if (view) {
+    return (
+      <div className={'svl-pro-checkbox-tree-view'}>
+        {treeData.map((item) => {
+          if (
+            checkedList[item.key]?.length === item.children?.length ||
+            getGroupIndeterminate(item)
+          ) {
+            return (
+              <div
+                key={`tree-item-${item.key}`}
+                className={'svl-pro-checkbox-tree-view-item-container'}
+              >
+                <div className={'svl-pro-checkbox-tree-view-item-title'}>{item.title}</div>
+                {item.children ? (
+                  <div className={'svl-pro-checkbox-tree-view-sub-item-container'}>
+                    {item.children.map((subItem: CustomNodeItem) => {
+                      if (checkedList[item.key].includes(subItem.key)) {
+                        return (
+                          <div key={subItem.key} className={'svl-pro-checkbox-tree-view-sub-item'}>
+                            {subItem.title}
+                          </div>
+                        );
+                      }
+                      return <></>;
+                    })}
+                  </div>
+                ) : null}
+              </div>
+            );
+          }
+          return <></>;
+        })}
+      </div>
+    );
+  }
   return (
     <div className={'svl-pro-checkbox-tree'}>
       {isShowAll && (
@@ -177,7 +232,10 @@ const CheckboxTree: FC<CheckboxTree> = (props) => {
             <div className="svl-pro-checkbox-tree-item">
               <Checkbox
                 indeterminate={getGroupIndeterminate(item)}
-                checked={checkedList[item.key]?.length === item.children?.length}
+                checked={
+                  checkedList[item.key]?.length ===
+                  item.children?.filter((item) => has(item, 'title'))?.length
+                }
                 onChange={(e) => onCheckItem({ checked: e.target.checked, data: item })}
               >
                 {item.title}
