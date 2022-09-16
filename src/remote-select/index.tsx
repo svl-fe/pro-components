@@ -22,6 +22,8 @@ export interface IRemoteSelect extends SelectProps {
   initFetch?: boolean;
   /** 是否加载更多数据 */
   loadMore?: boolean;
+  /** 更新数据 */
+  refresh?: boolean;
   /** 距离底部多少时开始加载数据，默认值 10 */
   offsetBottom?: number;
   /** 添加选项方法 */
@@ -42,6 +44,7 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
     className,
     offsetBottom = 10,
     initFetch = true,
+    refresh,
     loadMore,
     fetchOptions,
     onChange,
@@ -71,6 +74,14 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    if (refresh) {
+      currentParamRef.current = '';
+      pageRef.current = 1;
+      initData();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refresh]);
 
   const debounceFetcher = useMemo(() => {
     const loadOptions = (param: string) => {
