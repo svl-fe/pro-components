@@ -66,6 +66,7 @@ export default () => {
 | refresh | 更新数据 | boolean |  | 否 |  |
 | loadMore | 是否加载更多数据 | boolean |  | 否 |  |
 | offsetBottom | 距离底部多少时开始加载数据 | number | 10 | 否 |  |
+| empty | 数据为空时展示 | React.ReactNode | 通用 Empty | 否 |  |
 | addOption | 添加选项方法 | (params: string) => void |  | 否 |  |
 | fetchOptions | 搜索获取下拉选项方法 | (params: string) => Promise<LabeledValue[]> |  | 否 |  |
 | onChange | 值发生变化回调 | (params: Value) => void |  | 否 |  |
