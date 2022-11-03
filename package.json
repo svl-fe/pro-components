@@ -1,7 +1,7 @@
 {
   "name": "@svl-ad/pro-components",
   "private": false,
-  "version": "0.0.12",
+  "version": "0.0.13",
   "keywords": [
     "React",
     "Components",
@@ -48,6 +48,7 @@
     "react-dom": ">=16.9.0"
   },
   "dependencies": {
+    "svl-design": "^0.0.9",
     "@ant-design/icons": "^4.7.0",
     "@svl-ad/hooks": "^0.0.1",
     "ag-grid-community": "^26.2.1",
