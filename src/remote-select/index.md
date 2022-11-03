@@ -63,6 +63,7 @@ export default () => {
 | value | 组件当前值 | Value \| LabeledValue \| LabeledValue[] |  | 否 |  |
 | addText | 添加功能 | string |  | 否 |  |
 | initFetch | 初始化时是否获取数据 | boolean | true | 否 |  |
+| refresh | 更新数据 | boolean |  | 否 |  |
 | loadMore | 是否加载更多数据 | boolean |  | 否 |  |
 | offsetBottom | 距离底部多少时开始加载数据 | number | 10 | 否 |  |
 | addOption | 添加选项方法 | (params: string) => void |  | 否 |  |
