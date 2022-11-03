@@ -24,3 +24,5 @@ jobs:
         run: npm run build && npm publish --access=public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Cnpm Sync
+        run: npm install -g cnpm --registry=https://registry.npmmirror.com && cnpm sync @svl-ad/pro-components

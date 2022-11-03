@@ -6,6 +6,8 @@ import { Select, Spin, Empty } from 'antd';
 import { debounce } from 'lodash';
 import type { LabeledValue, RefSelectProps, SelectValue } from 'antd/es/select';
 
+import emptyIcon from './emptyImg.png';
+
 import './style/index.less';
 
 type RawValue = string | number;
@@ -26,6 +28,8 @@ export interface IRemoteSelect extends SelectProps {
   refresh?: boolean;
   /** 距离底部多少时开始加载数据，默认值 10 */
   offsetBottom?: number;
+  /** 数据为空时展示 */
+  empty?: React.ReactNode;
   /** 添加选项方法 */
   addOption?: (params: string) => void;
   /** 添加参数校验方法 */
@@ -46,6 +50,12 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
     initFetch = true,
     refresh,
     loadMore,
+    empty = (
+      <Empty
+        image={<img src={emptyIcon} />}
+        description={<span className="svl-remote-select-description">暂无数据</span>}
+      />
+    ),
     fetchOptions,
     onChange,
     addOption,
@@ -146,7 +156,7 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
       filterOption={false}
       onChange={handleChange}
       onSearch={debounceFetcher}
-      notFoundContent={fetching ? <Spin size="small" /> : options?.length ? null : <Empty />}
+      notFoundContent={fetching ? <Spin size="small" /> : options?.length ? null : empty}
       options={options}
       dropdownRender={(menu) => (
         <>
