@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { FC, useCallback } from 'react';
 import React, { useEffect } from 'react';
 import { useState, useMemo, useRef } from 'react';
 import type { SelectProps } from 'antd';
@@ -136,17 +136,20 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
     }
   };
 
-  const onPopupScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement;
-    if (loadMore && scrollTop >= scrollHeight - clientHeight - offsetBottom) {
-      pageRef.current += 1;
-      setFetching(true);
-      fetchOptions(currentParamRef.current, pageRef.current).then((newOptions) => {
-        setOptions([...options, ...newOptions]);
-        setFetching(false);
-      });
-    }
-  };
+  const onPopupScroll = useCallback(
+    (e: React.UIEvent<HTMLDivElement>) => {
+      const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement;
+      if (loadMore && !fetching && scrollTop >= scrollHeight - clientHeight - offsetBottom) {
+        pageRef.current += 1;
+        setFetching(true);
+        fetchOptions(currentParamRef.current, pageRef.current).then((newOptions) => {
+          setOptions([...options, ...newOptions]);
+          setFetching(false);
+        });
+      }
+    },
+    [loadMore, fetching],
+  );
 
   return (
     <Select
