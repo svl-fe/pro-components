@@ -148,7 +148,7 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
         });
       }
     },
-    [loadMore, fetching],
+    [loadMore, fetching, options],
   );
 
   return (
