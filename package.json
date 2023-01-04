@@ -1,7 +1,7 @@
 {
   "name": "@svl-ad/pro-components",
   "private": false,
-  "version": "0.0.16",
+  "version": "0.0.17",
   "keywords": [
     "React",
     "Components",
@@ -45,7 +45,8 @@
   "peerDependencies": {
     "antd": "^4.21.2",
     "react": ">=16.9.0",
-    "react-dom": ">=16.9.0"
+    "react-dom": ">=16.9.0",
+    "svl-design": "^0.0.9"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -76,6 +77,7 @@
     "prettier": "^2.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "svl-design": "^0.0.9",
     "yorkie": "^2.0.0"
   }
 }

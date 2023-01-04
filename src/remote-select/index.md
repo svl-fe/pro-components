@@ -40,6 +40,7 @@ export default () => {
 
   return (
     <RemoteSelect
+      showArrow
       mode="multiple"
       value={value}
       loadMore
