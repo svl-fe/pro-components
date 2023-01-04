@@ -1,9 +1,9 @@
-import { FC, useCallback } from 'react';
-import React, { useEffect } from 'react';
-import { useState, useMemo, useRef } from 'react';
+import type { FC } from 'react';
+import React, { useEffect, useCallback, useState, useMemo, useRef } from 'react';
 import type { SelectProps } from 'antd';
-import { Select, Spin, Empty } from 'antd';
+import { Spin, Empty } from 'antd';
 import { debounce } from 'lodash';
+import { Select } from 'svl-design';
 import type { LabeledValue, RefSelectProps, SelectValue } from 'antd/es/select';
 
 import emptyIcon from './emptyImg.png';
