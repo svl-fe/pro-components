@@ -1,10 +1,11 @@
 import { FC, useMemo } from 'react';
 import React, { useRef, useState, useEffect } from 'react';
-import { Select, DatePicker } from 'antd';
+import { DatePicker } from 'antd';
 import type { Moment } from 'moment';
 import moment from 'moment';
 import type { RangeValue } from 'rc-picker/lib/interface';
 import { RefSelectProps } from 'antd/lib/select';
+import { Select } from 'svl-design';
 
 import './style/index.less';
 
