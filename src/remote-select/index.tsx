@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import React, { useEffect, useCallback, useState, useMemo, useRef } from 'react';
 import type { SelectProps } from 'antd';
 import { Spin, Empty } from 'antd';
@@ -6,11 +5,9 @@ import { debounce } from 'lodash';
 import { Select } from 'svl-design';
 import type { LabeledValue, RefSelectProps, SelectValue } from 'antd/es/select';
 
-import emptyIcon from './emptyImg.png';
-
 import './style/index.less';
 
-type RawValue = string | number;
+// type RawValue = string | number;
 // type Value = RawValue | RawValue[];
 
 export interface IRemoteSelect extends SelectProps {
@@ -40,7 +37,7 @@ export interface IRemoteSelect extends SelectProps {
   onChange?: (params: SelectValue) => void;
 }
 
-const RemoteSelect: FC<IRemoteSelect> = (props) => {
+const RemoteSelect = (props: IRemoteSelect, ref: React.Ref<RefSelectProps>) => {
   const {
     debounceTimeout = 800,
     value,
@@ -50,12 +47,7 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
     initFetch = true,
     refresh,
     loadMore,
-    empty = (
-      <Empty
-        image={<img src={emptyIcon} />}
-        description={<span className="svl-remote-select-description">暂无数据</span>}
-      />
-    ),
+    empty = <Empty />,
     fetchOptions,
     onChange,
     addOption,
@@ -153,7 +145,7 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
 
   return (
     <Select
-      ref={selectRef}
+      ref={ref || selectRef}
       className={`svl-remote-select ${className}`}
       value={value || selfValue}
       filterOption={false}
@@ -178,4 +170,4 @@ const RemoteSelect: FC<IRemoteSelect> = (props) => {
   );
 };
 
-export default RemoteSelect;
+export default React.forwardRef(RemoteSelect);
