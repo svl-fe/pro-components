@@ -38,10 +38,12 @@ export interface IColDetailProps {
   valueStyle?: CSSProperties;
   /** 样式名称 */
   className?: string;
+  /** label value 反转展示 */
+  reverse?: boolean;
 }
 
 const ColDetail: FC<IColDetailProps> = (props) => {
-  const { colData, info, style, keyStyle, valueStyle, className = '' } = props;
+  const { colData, info, style, keyStyle, valueStyle, className = '', reverse = false } = props;
 
   return (
     <>
@@ -67,25 +69,34 @@ const ColDetail: FC<IColDetailProps> = (props) => {
           }
         }
 
+        const labelField = (
+          <div style={keyStyle} className="svl-col-detail-info-label">
+            {resultKey}
+            {keyAfter}
+          </div>
+        );
+
+        const valueField = (
+          <Text
+            style={valueStyle}
+            className="svl-col-detail-info-value"
+            ellipsis={{ tooltip: result?.tooltip }}
+          >
+            {result?.show || '-'}
+          </Text>
+        );
+
         return (
           <Col
             key={label || (key as string)}
             span={span}
-            className={`svl-col-detail-item ${className}`}
+            className={`svl-col-detail-item ${className} ${reverse ? 'reverse' : ''}`}
             style={style}
             {...rest}
           >
-            <div style={keyStyle} className="svl-col-detail-info-label">
-              {resultKey}
-              {keyAfter}
-            </div>
-            <Text
-              style={valueStyle}
-              className="svl-col-detail-info-value"
-              ellipsis={{ tooltip: result?.tooltip }}
-            >
-              {result?.show || '-'}
-            </Text>
+            {labelField}
+            <span className="svl-col-detail-info-slot" />
+            {valueField}
           </Col>
         );
       })}
