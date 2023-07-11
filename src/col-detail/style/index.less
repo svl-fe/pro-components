@@ -2,17 +2,24 @@
 
 .svl-col-detail {
   &-item {
+    display: flex;
+    flex-flow: column;
     color: @text-color;
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
     word-break: break-all;
+    &.reverse {
+      flex-flow: column-reverse;
+    }
   }
   &-info-label {
     color: @text-color-secondary;
   }
   &-info-value {
-    margin-top: 8px;
     white-space: pre;
+  }
+  &-info-slot {
+    height: 8px;
   }
 }
