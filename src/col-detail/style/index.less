@@ -3,7 +3,7 @@
 .svl-col-detail {
   &-item {
     display: flex;
-    flex-flow: column;
+    flex-direction: column;
     color: @text-color;
     font-weight: 400;
     font-size: 14px;
@@ -14,6 +14,7 @@
     }
   }
   &-info-label {
+    flex-shrink: 0;
     color: @text-color-secondary;
   }
   &-info-value {

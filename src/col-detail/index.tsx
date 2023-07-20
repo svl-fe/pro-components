@@ -39,11 +39,19 @@ export interface IColDetailProps {
   /** 样式名称 */
   className?: string;
   /** label value 反转展示 */
-  reverse?: boolean;
+  direction?: React.CSSProperties['flexDirection'];
 }
 
 const ColDetail: FC<IColDetailProps> = (props) => {
-  const { colData, info, style, keyStyle, valueStyle, className = '', reverse = false } = props;
+  const {
+    colData,
+    info,
+    style,
+    keyStyle,
+    valueStyle,
+    className = '',
+    direction = 'column',
+  } = props;
 
   return (
     <>
@@ -90,8 +98,11 @@ const ColDetail: FC<IColDetailProps> = (props) => {
           <Col
             key={label || (key as string)}
             span={span}
-            className={`svl-col-detail-item ${className} ${reverse ? 'reverse' : ''}`}
-            style={style}
+            className={`svl-col-detail-item ${className}`}
+            style={{
+              ...style,
+              flexDirection: direction,
+            }}
             {...rest}
           >
             {labelField}
