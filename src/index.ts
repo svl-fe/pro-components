@@ -15,3 +15,5 @@ export type { HashLocationProps } from './hash-location';
 export { default as HashLocation } from './hash-location';
 export type { IColDetailProps } from './col-detail';
 export { default as ColDetail } from './col-detail';
+
+export { default as QuickRangeDate } from './quick-range-date';

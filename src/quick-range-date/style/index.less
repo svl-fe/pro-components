@@ -1,0 +1,90 @@
+@import '../../style/index';
+
+.svl-pro-rpicker {
+  &-vertical-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 6px 12px 0;
+    border: 1px solid #ebedf0;
+    border-radius: 4px;
+
+    .svl-pro-rpicker-time-steps {
+      .ant-steps-item-title {
+        color: #969799 !important;
+        font-weight: 400;
+        font-size: 14px;
+        font-family: 'PingFang SC-Regular', 'PingFang SC';
+        line-height: 20px;
+      }
+
+      .ant-steps-item-icon {
+        width: 6px;
+        height: 6px;
+        margin-top: 8px;
+      }
+
+      .ant-steps-item-process .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot {
+        background: #969799;
+      }
+
+      .ant-steps-item > .ant-steps-item-container > .ant-steps-item-tail {
+        top: -6.5px;
+        left: -11px;
+
+        &::after {
+          width: 2px;
+          height: 500%;
+        }
+      }
+
+      .ant-steps-item-content {
+        min-height: 20px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.svl-pro-rpicker-overlay-container {
+  display: flex;
+  width: 666px;
+  height: 384px;
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px 0 rgba(200, 201, 204, 50%);
+
+  .svl-pro-rpicker-custom-time {
+    flex: 1;
+    padding: 24px;
+    font-size: 14px;
+    font-family: 'PingFang SC-Semibold', 'PingFang SC';
+
+    &-title {
+      margin-bottom: 32px;
+      color: #323233;
+      font-weight: 600;
+      line-height: 20px;
+    }
+
+    &-label {
+      margin-bottom: 8px;
+      color: #323233;
+      font-weight: 400;
+      line-height: 20px;
+    }
+
+    &-actions {
+      display: flex;
+      flex-direction: row;
+      align-items: end;
+      justify-content: end;
+      height: 155px;
+    }
+  }
+}
+
+.svl-pro-rpicker-dates-icon {
+  color: var(--color-n4);
+  font-size: 18px;
+}
