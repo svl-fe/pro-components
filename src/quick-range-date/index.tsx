@@ -32,9 +32,17 @@ import './style/index.less';
 const DFT_FORMAT = ' YYYY-MM-DD HH:mm:ss';
 
 interface IQuickRangePickerProps {
-  width?: string;
+  /** 样式 */
+  style?: React.CSSProperties;
+  /** 类名 */
+  className?: string;
+  /** 下拉根元素的类名称 */
+  overlayClassName?: string;
+  /** 绝对时间展示形式 */
   mode?: 'vertical' | 'horizontal';
+  /** 值 */
   value: IQuickRangePickerValue;
+  /** 值发生变化时回调 */
   onChange: (val: IQuickRangePickerValue) => void;
 }
 
@@ -43,7 +51,7 @@ interface IQuickRangePickerRef {
 }
 
 const QuickRangePicker = forwardRef<IQuickRangePickerRef, IQuickRangePickerProps>((props, ref) => {
-  const { value, onChange, width = '100%', mode = 'vertical' } = props;
+  const { value, onChange, className, overlayClassName, style, mode = 'vertical' } = props;
 
   const [showQuick, setShowQuick] = useState(false);
   const [cachedValue, setCachedValue] = useState<TDateType[]>([]);
@@ -140,7 +148,7 @@ const QuickRangePicker = forwardRef<IQuickRangePickerRef, IQuickRangePickerProps
 
   const rendRangePicker = () => {
     return (
-      <div className="svl-pro-rpicker-overlay-container">
+      <div className={`svl-pro-rpicker-overlay-container ${overlayClassName}`}>
         <QuickChosen
           onChange={(dates, type) => handleQuickChosenChange(dates as RangeValue, type)}
         />
@@ -151,7 +159,7 @@ const QuickRangePicker = forwardRef<IQuickRangePickerRef, IQuickRangePickerProps
             showNow={false}
             showTime={{ format: 'HH:mm' }}
             value={cachedValue?.[0]}
-            style={width ? { width } : {}}
+            style={{ width: '100%' }}
             onChange={(value) => handleDatePickerChange(value, 'start')}
           />
           <div className="svl-pro-rpicker-custom-time-label" style={{ marginTop: '14px' }}>
@@ -161,7 +169,7 @@ const QuickRangePicker = forwardRef<IQuickRangePickerRef, IQuickRangePickerProps
             showNow={false}
             showTime={{ format: 'HH:mm' }}
             value={cachedValue?.[1]}
-            style={width ? { width } : {}}
+            style={{ width: '100%' }}
             onChange={(value) => handleDatePickerChange(value, 'end')}
           />
           <div className="svl-pro-rpicker-custom-time-actions">
@@ -180,7 +188,7 @@ const QuickRangePicker = forwardRef<IQuickRangePickerRef, IQuickRangePickerProps
   };
 
   return (
-    <div className="svl-pro-rpicker" ref={rangeRef}>
+    <div className={`svl-pro-rpicker ${className}`} style={style} ref={rangeRef}>
       <Dropdown open={showQuick} autoAdjustOverflow dropdownRender={rendRangePicker}>
         <div onClick={(e) => e.preventDefault()}>
           {mode === 'vertical' && (
