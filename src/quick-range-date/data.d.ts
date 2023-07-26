@@ -25,7 +25,7 @@ export type TRangePickerType = TRangePickerQuickChosenType | 'absolute';
 
 export type TDatePickerPosition = 'start' | 'end';
 
-export type TQuickRangePickerMode = 'horizon' | 'vertical';
+export type TQuickRangeDateMode = 'horizon' | 'vertical';
 
 export type TDateType = Moment | null;
 
@@ -34,7 +34,7 @@ export type RangeValue = [DateType, DateType] | null;
 /**
  * 时间范围选择器值
  */
-export interface IQuickRangePickerValue {
+export interface IQuickRangeDateValue {
   /** 时间类型 */
   type: TRangePickerType;
   dates: RangeValue;

@@ -19,7 +19,7 @@ import {
   matchQuickChosenTitle,
 } from './utils';
 import {
-  IQuickRangePickerValue,
+  IQuickRangeDateValue,
   RangeValue,
   TDatePickerPosition,
   TDateType,
@@ -31,7 +31,7 @@ import './style/index.less';
 
 const DFT_FORMAT = ' YYYY-MM-DD HH:mm:ss';
 
-interface IQuickRangePickerProps {
+interface IQuickRangeDateProps {
   /** 样式 */
   style?: React.CSSProperties;
   /** 类名 */
@@ -41,22 +41,22 @@ interface IQuickRangePickerProps {
   /** 绝对时间展示形式 */
   mode?: 'vertical' | 'horizontal';
   /** 值 */
-  value: IQuickRangePickerValue;
+  value: IQuickRangeDateValue;
   /** 值发生变化时回调 */
-  onChange: (val: IQuickRangePickerValue) => void;
+  onChange: (val: IQuickRangeDateValue) => void;
 }
 
-interface IQuickRangePickerRef {
+interface IQuickRangeDateRef {
   refresh: () => void;
 }
 
-const QuickRangePicker = forwardRef<IQuickRangePickerRef, IQuickRangePickerProps>((props, ref) => {
+const QuickRangeDate = forwardRef<IQuickRangeDateRef, IQuickRangeDateProps>((props, ref) => {
   const { value, onChange, className, overlayClassName, style, mode = 'vertical' } = props;
 
   const [showQuick, setShowQuick] = useState(false);
   const [cachedValue, setCachedValue] = useState<TDateType[]>([]);
-  const [rangeValue, setRangeValue] = useControlledState<IQuickRangePickerValue>(
-    getDftValue() as IQuickRangePickerValue,
+  const [rangeValue, setRangeValue] = useControlledState<IQuickRangeDateValue>(
+    getDftValue() as IQuickRangeDateValue,
     { value, onChange },
   );
   const rangeRef = useRef<HTMLDivElement>(null);
@@ -83,7 +83,7 @@ const QuickRangePicker = forwardRef<IQuickRangePickerRef, IQuickRangePickerProps
   // 刷新时间
   const refreshTime = () => {
     if (rangeValue.type === 'absolute') {
-      setRangeValue(getDftValue() as IQuickRangePickerValue);
+      setRangeValue(getDftValue() as IQuickRangeDateValue);
       return;
     }
 
@@ -136,7 +136,7 @@ const QuickRangePicker = forwardRef<IQuickRangePickerRef, IQuickRangePickerProps
       }
     }
 
-    const newValue: IQuickRangePickerValue = {
+    const newValue: IQuickRangeDateValue = {
       type: 'absolute',
       dates: cachedValue,
     };
@@ -226,6 +226,6 @@ const QuickRangePicker = forwardRef<IQuickRangePickerRef, IQuickRangePickerProps
   );
 });
 
-export default QuickRangePicker;
+export default QuickRangeDate;
 
 export { getQuickChosenDates };
