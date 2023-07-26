@@ -44,6 +44,8 @@ interface IQuickRangeDateProps {
   value?: IQuickRangeDateValue;
   /** 值发生变化时回调 */
   onChange?: (val: IQuickRangeDateValue) => void;
+  /** 后缀Icon */
+  suffixIcon?: React.ReactNode;
 }
 
 interface IQuickRangeDateRef {
@@ -51,7 +53,15 @@ interface IQuickRangeDateRef {
 }
 
 const QuickRangeDate = forwardRef<IQuickRangeDateRef, IQuickRangeDateProps>((props, ref) => {
-  const { value, onChange, className, overlayClassName, style, mode = 'vertical' } = props;
+  const {
+    value,
+    onChange,
+    className,
+    overlayClassName,
+    style,
+    mode = 'vertical',
+    suffixIcon,
+  } = props;
 
   const [showQuick, setShowQuick] = useState(false);
   const [cachedValue, setCachedValue] = useState<TDateType[]>([]);
@@ -211,15 +221,27 @@ const QuickRangeDate = forwardRef<IQuickRangeDateRef, IQuickRangeDateProps>((pro
                       },
                     ]}
                   />
-                  <CalendarOutlined className="svl-pro-rpicker-dates-icon" />
+                  <>
+                    {suffixIcon ? (
+                      suffixIcon
+                    ) : (
+                      <CalendarOutlined className="svl-pro-rpicker-dates-icon" />
+                    )}
+                  </>
                 </div>
               ) : (
-                <InputIcon title={horizontalTitle} showQuick={setShowQuick} />
+                <InputIcon
+                  title={horizontalTitle}
+                  showQuick={setShowQuick}
+                  suffixIcon={suffixIcon}
+                />
               )}
             </>
           )}
 
-          {mode === 'horizontal' && <InputIcon title={horizontalTitle} showQuick={setShowQuick} />}
+          {mode === 'horizontal' && (
+            <InputIcon title={horizontalTitle} showQuick={setShowQuick} suffixIcon={suffixIcon} />
+          )}
         </div>
       </Dropdown>
     </div>

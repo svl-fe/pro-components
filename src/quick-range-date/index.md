@@ -46,9 +46,10 @@ export default () => {
 
 | 属性 | 说明 | 类型 | 默认值 | 是否必传 | 版本 |
 | --- | --- | --- | --- | --- | --- |
-| style | 样式 | React.CSSProperties | - | 否 |  |
-| className | 类名 | string | - | 否 |  |
-| overlayClassName | 下拉根元素的类名称 | string | - | 否 |  |
-| mode | 绝对时间展示形式 | string | 'vertical' \| 'horizontal' | 'vertical' |  |
-| value | 当前组件 value 值，一般为 | Result: {type: string, dates: [Moment, Moment]} | {} | 否 |  |
-| onChange | 组件值发生变化时回调 | (params: Result) => void |  | 否 |  |
+| style | 样式 | React.CSSProperties | - | 否 | 0.21 |
+| className | 类名 | string | - | 否 | 0.21 |
+| overlayClassName | 下拉根元素的类名称 | string | - | 否 | 0.21 |
+| suffixIcon | 日历 Icon | React.ReactNode | - | 否 | 0.21 |
+| mode | 绝对时间展示形式 | string | 'vertical' \| 'horizontal' | 'vertical' | 0.21 |
+| value | 当前组件 value 值，一般为 | Result: {type: string, dates: [Moment, Moment]} | {} | 否 | 0.21 |
+| onChange | 组件值发生变化时回调 | (params: Result) => void |  | 否 | 0.21 |

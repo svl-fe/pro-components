@@ -6,11 +6,12 @@ import './index.less';
 
 interface InputIconProps {
   title?: string;
+  suffixIcon?: React.ReactNode;
   showQuick: (value: boolean) => void;
 }
 
 const InputIcon: FC<InputIconProps> = (props) => {
-  const { title, showQuick } = props;
+  const { title, suffixIcon, showQuick } = props;
 
   const [focus, setFocus] = useState(false);
 
@@ -21,8 +22,7 @@ const InputIcon: FC<InputIconProps> = (props) => {
       onMouseOut={() => setFocus(false)}
     >
       <Input onFocus={() => showQuick(true)} value={title} />
-      <CalendarOutlined className="svl-pro-rpicker-date-icon" />
-      {/* <MyIcon type="icon-date1" className={styles.dateIcon} /> */}
+      {suffixIcon ? suffixIcon : <CalendarOutlined className="svl-pro-rpicker-date-icon" />}
     </div>
   );
 };
