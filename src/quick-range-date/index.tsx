@@ -18,7 +18,7 @@ import {
   getQuickChosenDates,
   matchQuickChosenTitle,
 } from './utils';
-import {
+import type {
   IQuickRangeDateValue,
   RangeValue,
   TDatePickerPosition,
@@ -253,4 +253,4 @@ export default QuickRangeDate;
 
 export { getQuickChosenDates };
 
-export { IQuickRangeDateValue, TRangePickerQuickChosenType };
+export type { IQuickRangeDateValue, TRangePickerQuickChosenType };
