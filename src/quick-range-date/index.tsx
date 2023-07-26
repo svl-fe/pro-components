@@ -148,6 +148,7 @@ const QuickRangeDate = forwardRef<IQuickRangeDateRef, IQuickRangeDateProps>((pro
 
     const newValue: IQuickRangeDateValue = {
       type: 'absolute',
+      // @ts-ignore
       dates: cachedValue,
     };
 
