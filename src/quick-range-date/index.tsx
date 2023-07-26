@@ -31,7 +31,7 @@ import './style/index.less';
 
 const DFT_FORMAT = ' YYYY-MM-DD HH:mm:ss';
 
-interface IQuickRangeDateProps {
+export interface IQuickRangeDateProps {
   /** 样式 */
   style?: React.CSSProperties;
   /** 类名 */
