@@ -41,9 +41,9 @@ interface IQuickRangeDateProps {
   /** 绝对时间展示形式 */
   mode?: 'vertical' | 'horizontal';
   /** 值 */
-  value: IQuickRangeDateValue;
+  value?: IQuickRangeDateValue;
   /** 值发生变化时回调 */
-  onChange: (val: IQuickRangeDateValue) => void;
+  onChange?: (val: IQuickRangeDateValue) => void;
 }
 
 interface IQuickRangeDateRef {
