@@ -252,3 +252,5 @@ const QuickRangeDate = forwardRef<IQuickRangeDateRef, IQuickRangeDateProps>((pro
 export default QuickRangeDate;
 
 export { getQuickChosenDates };
+
+export { IQuickRangeDateValue, TRangePickerQuickChosenType };
