@@ -16,7 +16,7 @@ group:
 示例:
 
 ```tsx
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button } from 'antd';
 import { QuickRangeDate } from '@svl-ad/pro-components';
 
@@ -24,13 +24,22 @@ export default () => {
   const [value1, setValue1] = useState({});
   const [value2, setValue2] = useState({});
 
+  const pickerRef = useRef(null);
+
+  const handleRefresh = () => {
+    pickerRef.current.refresh();
+  };
+
   return (
     <div>
+      <Button type="primary" onClick={handleRefresh} style={{ marginBottom: '20px' }}>
+        刷新
+      </Button>
       <div style={{ marginBottom: '10px' }}>
         <div>值展示(水平)</div>
         <div>{JSON.stringify(value1)}</div>
       </div>
-      <QuickRangeDate mode="horizontal" value={value1} onChange={setValue1} />
+      <QuickRangeDate mode="horizontal" value={value1} onChange={setValue1} ref={pickerRef} />
       <br />
       <div style={{ marginBottom: '10px' }}>
         <div>值展示(垂直)</div>
