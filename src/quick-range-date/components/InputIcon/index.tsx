@@ -21,7 +21,7 @@ const InputIcon: FC<InputIconProps> = (props) => {
       onFocus={() => setFocus(true)}
       onMouseOut={() => setFocus(false)}
     >
-      <Input onFocus={() => showQuick(true)} value={title} />
+      <Input onFocus={() => showQuick(true)} value={title} placeholder="请选择" />
       {suffixIcon ? suffixIcon : <CalendarOutlined className="svl-pro-rpicker-date-icon" />}
     </div>
   );
