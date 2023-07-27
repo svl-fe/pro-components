@@ -100,8 +100,8 @@ const ColDetail: FC<IColDetailProps> = (props) => {
             span={span}
             className={`svl-col-detail-item ${className}`}
             style={{
-              ...style,
               flexDirection: direction,
+              ...style,
             }}
             {...rest}
           >
