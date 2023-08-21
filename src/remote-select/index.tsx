@@ -11,6 +11,7 @@ import type { SelectProps } from 'antd';
 import { Spin, Empty } from 'antd';
 import { debounce } from 'lodash';
 import { Select } from 'svl-design';
+import type { BaseSelectRef } from 'rc-select';
 import type { LabeledValue, RefSelectProps, SelectValue } from 'antd/es/select';
 
 import './style/index.less';
@@ -49,7 +50,7 @@ interface IRemoteSelectRef {
   refresh?: () => void;
 }
 
-const RemoteSelect = (props: IRemoteSelect, ref: React.Ref<IRemoteSelectRef>) => {
+const RemoteSelect = (props: IRemoteSelect, ref: React.Ref<IRemoteSelectRef | BaseSelectRef>) => {
   const {
     debounceTimeout = 800,
     value,
@@ -164,7 +165,7 @@ const RemoteSelect = (props: IRemoteSelect, ref: React.Ref<IRemoteSelectRef>) =>
 
   return (
     <Select
-      ref={ref || selectRef}
+      ref={(ref as unknown as React.Ref<BaseSelectRef>) || selectRef}
       className={`svl-remote-select ${className}`}
       value={value || selfValue}
       filterOption={false}
