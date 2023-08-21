@@ -1,4 +1,12 @@
-import React, { useEffect, useCallback, useState, useMemo, useRef } from 'react';
+import React, {
+  useEffect,
+  useCallback,
+  useState,
+  useMemo,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
 import type { SelectProps } from 'antd';
 import { Spin, Empty } from 'antd';
 import { debounce } from 'lodash';
@@ -37,7 +45,11 @@ export interface IRemoteSelect extends SelectProps {
   onChange?: (params: SelectValue) => void;
 }
 
-const RemoteSelect = (props: IRemoteSelect, ref: React.Ref<RefSelectProps>) => {
+interface IRemoteSelectRef {
+  refresh?: () => void;
+}
+
+const RemoteSelect = (props: IRemoteSelect, ref: React.Ref<IRemoteSelectRef>) => {
   const {
     debounceTimeout = 800,
     value,
@@ -68,22 +80,29 @@ const RemoteSelect = (props: IRemoteSelect, ref: React.Ref<RefSelectProps>) => {
     }
     onChange?.(changeValue);
   };
+
   // 初始化获取options
   const initData = () => fetchOptions('').then((newOptions) => setOptions(newOptions));
+
+  // 刷新远程数据
+  const refreshRemoteData = () => {
+    currentParamRef.current = '';
+    pageRef.current = 1;
+    initData();
+  };
+
   useEffect(() => {
-    if (initFetch) {
-      initData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (initFetch) initData();
   }, []);
+
   useEffect(() => {
-    if (refresh) {
-      currentParamRef.current = '';
-      pageRef.current = 1;
-      initData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (refresh) refreshRemoteData();
   }, [refresh]);
+
+  // 将刷新函数传递给父组件
+  useImperativeHandle(ref, () => ({
+    refresh: refreshRemoteData,
+  }));
 
   const debounceFetcher = useMemo(() => {
     const loadOptions = (param: string) => {
@@ -170,4 +189,4 @@ const RemoteSelect = (props: IRemoteSelect, ref: React.Ref<RefSelectProps>) => {
   );
 };
 
-export default React.forwardRef(RemoteSelect);
+export default forwardRef(RemoteSelect);
