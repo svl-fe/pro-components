@@ -44,6 +44,7 @@ export default () => {
       mode="multiple"
       value={value}
       loadMore
+      addLinkUrl="https://www.baidu.com/"
       placeholder="Select users"
       fetchOptions={fetchUserList}
       onChange={(newValue) => {
@@ -63,6 +64,8 @@ export default () => {
 | debounceTimeout | 搜索防抖时间 | number | 800 | 否 |  |
 | value | 组件当前值 | Value \| LabeledValue \| LabeledValue[] |  | 否 |  |
 | addText | 添加功能 | string |  | 否 |  |
+| addLinkText | 添加功能 跳转文案 | string |  | 否 |  |
+| addLinkUrl | 添加功能 跳转地址 | string \| (() => {}) |  | 否 |  |
 | initFetch | 初始化时是否获取数据 | boolean | true | 否 |  |
 | refresh | 更新数据 | boolean |  | 否 |  |
 | loadMore | 是否加载更多数据 | boolean |  | 否 |  |

@@ -1,19 +1,21 @@
+import Icon from '@ant-design/icons';
+import type { SelectProps } from 'antd';
+import { Empty, Spin } from 'antd';
+import type { LabeledValue, RefSelectProps, SelectValue } from 'antd/es/select';
+import { debounce } from 'lodash';
+import type { BaseSelectRef } from 'rc-select';
 import React, {
-  useEffect,
+  forwardRef,
   useCallback,
-  useState,
+  useEffect,
+  useImperativeHandle,
   useMemo,
   useRef,
-  forwardRef,
-  useImperativeHandle,
+  useState,
 } from 'react';
-import type { SelectProps } from 'antd';
-import { Spin, Empty } from 'antd';
-import { debounce } from 'lodash';
 import { Select } from 'svl-design';
-import type { BaseSelectRef } from 'rc-select';
-import type { LabeledValue, RefSelectProps, SelectValue } from 'antd/es/select';
-
+import { ReactComponent as addSvg } from '../svg/icon-add.svg';
+import { ReactComponent as refreshSvg } from '../svg/icon-refresh.svg';
 import './style/index.less';
 
 // type RawValue = string | number;
@@ -26,6 +28,10 @@ export interface IRemoteSelect extends SelectProps {
   value?: SelectValue | LabeledValue | LabeledValue[];
   /** 添加功能 文字 */
   addText?: string;
+  /** 添加功能 跳转文案 */
+  addLinkText?: string;
+  /** 添加功能 跳转地址 */
+  addLinkUrl?: string | (() => {});
   /** 初始化时是否获取数据 默认值true */
   initFetch?: boolean;
   /** 是否加载更多数据 */
@@ -50,11 +56,16 @@ interface IRemoteSelectRef {
   refresh?: () => void;
 }
 
+const PlullDownSvg = <Icon component={refreshSvg} className="svl-remote-select-refresh-icon" />;
+const AddSvg = <Icon component={addSvg} className="svl-remote-select-refresh-icon" />;
+
 const RemoteSelect = (props: IRemoteSelect, ref: React.Ref<IRemoteSelectRef | BaseSelectRef>) => {
   const {
     debounceTimeout = 800,
     value,
     addText,
+    addLinkUrl,
+    addLinkText,
     className,
     offsetBottom = 10,
     initFetch = true,
@@ -69,6 +80,7 @@ const RemoteSelect = (props: IRemoteSelect, ref: React.Ref<IRemoteSelectRef | Ba
   } = props;
 
   const [fetching, setFetching] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [selfValue, setSelfValue] = useState<SelectValue>();
   const [options, setOptions] = useState<LabeledValue[]>([]);
   const fetchRef = useRef(0);
@@ -83,7 +95,12 @@ const RemoteSelect = (props: IRemoteSelect, ref: React.Ref<IRemoteSelectRef | Ba
   };
 
   // 初始化获取options
-  const initData = () => fetchOptions('').then((newOptions) => setOptions(newOptions));
+  const initData = () =>
+    fetchOptions('')
+      .then((newOptions) => setOptions(newOptions))
+      .finally(() => {
+        setRefreshing(false);
+      });
 
   // 刷新远程数据
   const refreshRemoteData = () => {
@@ -95,6 +112,11 @@ const RemoteSelect = (props: IRemoteSelect, ref: React.Ref<IRemoteSelectRef | Ba
   useEffect(() => {
     if (initFetch) initData();
   }, []);
+
+  const refreshF = () => {
+    setRefreshing(true);
+    refreshRemoteData();
+  };
 
   useEffect(() => {
     if (refresh) refreshRemoteData();
@@ -113,14 +135,18 @@ const RemoteSelect = (props: IRemoteSelect, ref: React.Ref<IRemoteSelectRef | Ba
       const fetchId = fetchRef.current;
       setOptions([]);
       setFetching(true);
-      fetchOptions(param).then((newOptions) => {
-        if (fetchId !== fetchRef.current) {
-          // for fetch callback order
-          return;
-        }
-        setOptions(newOptions);
-        setFetching(false);
-      });
+      fetchOptions(param)
+        .then((newOptions) => {
+          if (fetchId !== fetchRef.current) {
+            // for fetch callback order
+            return;
+          }
+          setOptions(newOptions);
+          setFetching(false);
+        })
+        .finally(() => {
+          setFetching(false);
+        });
     };
 
     return debounce(loadOptions, debounceTimeout);
@@ -154,10 +180,14 @@ const RemoteSelect = (props: IRemoteSelect, ref: React.Ref<IRemoteSelectRef | Ba
       if (loadMore && !fetching && scrollTop >= scrollHeight - clientHeight - offsetBottom) {
         pageRef.current += 1;
         setFetching(true);
-        fetchOptions(currentParamRef.current, pageRef.current).then((newOptions) => {
-          setOptions([...options, ...newOptions]);
-          setFetching(false);
-        });
+        fetchOptions(currentParamRef.current, pageRef.current)
+          .then((newOptions) => {
+            setOptions([...options, ...newOptions]);
+            setFetching(false);
+          })
+          .finally(() => {
+            setFetching(false);
+          });
       }
     },
     [loadMore, fetching, options],
@@ -176,9 +206,33 @@ const RemoteSelect = (props: IRemoteSelect, ref: React.Ref<IRemoteSelectRef | Ba
       dropdownRender={(menu) => (
         <>
           {menu}
-          {addText && showAdd && (
+          {!!(addText && showAdd) && (
             <div className="svl-remote-select-add" onClick={handelAdd}>
               {addText} <span className="svl-remote-select-add-value">{showAdd}</span>
+            </div>
+          )}
+          {!!addLinkUrl && (
+            <div className="svl-remote-select-add-bottom">
+              <div
+                className="svl-remote-select-add-bottom-item"
+                onClick={
+                  typeof addLinkUrl === 'function'
+                    ? addLinkUrl
+                    : () => {
+                        window.open(addLinkUrl);
+                      }
+                }
+              >
+                {AddSvg}
+                {addLinkText || '点击添加'}
+              </div>
+              <div
+                className={`svl-remote-select-add-bottom-item ${refreshing ? 'animationIcon' : ''}`}
+                onClick={refreshF}
+              >
+                {PlullDownSvg}
+                刷新
+              </div>
             </div>
           )}
         </>
