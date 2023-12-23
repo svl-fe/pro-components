@@ -1,13 +1,17 @@
 {
   "compilerOptions": {
-    "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
-    "jsx": "react",
-    "esModuleInterop": true,
-    "types": ["jest"],
     "strict": true,
+    "declaration": true,
+    "moduleResolution": "node",
     "skipLibCheck": true,
-    "declaration": true
-  }
+    "esModuleInterop": true,
+    "jsx": "react",
+    "baseUrl": "./",
+    "types": ["./typings.d.ts", "jest"],
+    "paths": {
+      "@@/*": [".dumi/tmp/*"]
+    }
+  },
+  "include": [".dumirc.ts", "src/**/*"]
 }

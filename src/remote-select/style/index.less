@@ -1,4 +1,9 @@
 @import '../../style/index.less';
+@keyframes fadenum {
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 .svl-remote-select {
   width: 100%;
@@ -26,5 +31,38 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 24px;
+  }
+
+  &-add-bottom {
+    display: flex;
+    align-items: center;
+    color: @primary-color;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+
+    .svl-remote-select-add-bottom-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50%;
+      padding: 12px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: fade(@primary-color, 20%);
+      }
+
+      &.animationIcon {
+        .svl-remote-select-refresh-icon {
+          animation: fadenum 1s infinite;
+        }
+      }
+    }
+  }
+
+  &-refresh-icon {
+    margin-right: 4px;
+    font-size: 16px;
   }
 }
