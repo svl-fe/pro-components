@@ -1,11 +1,8 @@
 ---
-nav:
-  title: 组件
-  path: /components
+title: VirtualList
 group:
-  path: /components
   title: 数据展示
-  order: 2
+  order: 5
 ---
 
 ## 虚拟滚动

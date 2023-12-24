@@ -1,9 +1,6 @@
 ---
-nav:
-  title: 组件
-  path: /components
+title: HashLocation
 group:
-  path: /components
   title: 数据展示
   order: 3
 ---
