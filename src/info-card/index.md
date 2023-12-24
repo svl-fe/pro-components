@@ -1,11 +1,8 @@
 ---
-nav:
-  title: 组件
-  path: /components
+title: InfoCard
 group:
-  path: /show-data
   title: 数据展示
-  order: 1
+  order: 4
 ---
 
 ## InfoCard 信息卡片
