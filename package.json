@@ -1,7 +1,7 @@
 {
   "name": "@svl-ad/pro-components",
   "private": false,
-  "version": "0.1.5",
+  "version": "0.1.6",
   "keywords": [
     "React",
     "Components",
@@ -45,8 +45,10 @@
   },
   "peerDependencies": {
     "antd": "^4.21.2",
+    "array-move": "^4.0.0",
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0",
+    "react-sortable-hoc": "^2.0.0",
     "svl-design": "^0.1.7"
   },
   "dependencies": {
@@ -76,6 +78,8 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "svl-design": "^0.1.13",
+    "react-sortable-hoc": "^2.0.0",
+    "array-move": "^4.0.0",
     "yorkie": "^2.0.0"
   }
 }
