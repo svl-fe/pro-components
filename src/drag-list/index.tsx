@@ -17,7 +17,7 @@ const SortableList = SortableContainer<{ items: any; Child: any }>(({ items, Chi
   return (
     <div>
       {items.map((value: any, index: number) => (
-        <SortableItem key={index} index={index} Child={Child} value={value} />
+        <SortableItem key={`item_${index}`} index={index} Child={Child} value={value} />
       ))}
     </div>
   );
@@ -27,7 +27,7 @@ interface IDragList extends SortableContainerProps {
   /** 展示数据 */
   data: any;
   /** child渲染组件，自定义数据如何渲染, 默认直接展示数组元素 */
-  Child?: React.FC;
+  Child?: FC<any>;
   /** 数据排序变化回调 */
   onChange?: (data: any) => void;
 }
@@ -45,9 +45,7 @@ const DragList: FC<IDragList> = ({ data, Child, onChange, ...rest }) => {
     onChange?.(newData);
   };
 
-  return (
-    <SortableList distance={1} onSortEnd={onSortEnd} Child={Child} items={selfListData} {...rest} />
-  );
+  return <SortableList onSortEnd={onSortEnd} Child={Child} items={selfListData} {...rest} />;
 };
 
 export default DragList;
