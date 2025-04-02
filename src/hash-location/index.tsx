@@ -1,5 +1,5 @@
-import React, { CSSProperties, FC, ReactNode, useRef, useState } from 'react';
 import classNames from 'classnames';
+import React, { CSSProperties, FC, ReactNode, useEffect, useRef, useState } from 'react';
 
 import './style/index.less';
 
@@ -20,10 +20,6 @@ export interface HashLocationProps {
   itemStyle?: CSSProperties;
 }
 
-/**
- * hash定位
- *
- */
 const HashLocation: FC<HashLocationProps> = (props) => {
   const {
     data = [],
@@ -49,6 +45,28 @@ const HashLocation: FC<HashLocationProps> = (props) => {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+      data.forEach((item, index) => {
+        const element = document.getElementById(item.href);
+        if (element) {
+          const elementTop = element.offsetTop;
+          const elementBottom = elementTop + element.offsetHeight;
+
+          if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+            partNRef.current = index;
+            setCurrent(item.href);
+          }
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [data?.length]);
+
   return (
     <ul className={containerCls} style={style}>
       <div
@@ -72,7 +90,6 @@ const HashLocation: FC<HashLocationProps> = (props) => {
             <a
               onClick={updateHref.bind(null, href, index)}
               className={`${href === current ? 'active' : ''}`}
-              // href={`#${href}`}
             >
               {title}
             </a>
