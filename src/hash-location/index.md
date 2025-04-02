@@ -37,7 +37,7 @@ export default () => {
     },
   ];
   return (
-    <div style={{ height: '100vh', overflow: 'auto', position: 'relative' }}>
+    <div>
       {data.map((item) => (
         <div
           key={item.href}
