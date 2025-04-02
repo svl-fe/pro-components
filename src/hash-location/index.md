@@ -36,7 +36,34 @@ export default () => {
       href: 'part5',
     },
   ];
-  return <HashLocation className="test" itemClassName="itemTest" data={data} />;
+  return (
+    <div style={{ height: '100vh', overflow: 'auto', position: 'relative' }}>
+      {data.map((item) => (
+        <div
+          key={item.href}
+          id={item.href}
+          style={{
+            height: '300px',
+            paddingTop: '100px',
+            marginTop: '-100px',
+            borderBottom: '1px solid #eee',
+          }}
+        >
+          <h2>{item.title}</h2>
+          <p>这里是 {item.title} 的内容区域...</p>
+        </div>
+      ))}
+      <div
+        style={{
+          position: 'fixed',
+          top: 100,
+          right: 50,
+        }}
+      >
+        <HashLocation className="test" itemClassName="itemTest" data={data} />
+      </div>
+    </div>
+  );
 };
 ```
 
